@@ -1,16 +1,92 @@
-# React + Vite
+# 🚚 Transport Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, premium-looking transport booking website built using **React + Vite**, featuring protected routes, elegant UI, and smooth booking experience.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## React Compiler
+* **Modern Hero Section** with animations
+* **Premium Navbar** with glass effect
+* **Booking Form** with date, time & contact details
+* **WhatsApp Integration** to notify owner
+* **Fully Responsive UI**
+* **Clean Project Structure**
+* **Protected Routes** for admin pages
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 📁 Project Structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```
+src/
+├── Components/
+│   ├── Navbar/
+│   ├── Hero/
+│   ├── Booking/
+│   └── Footer/
+│
+├── Pages/
+│   ├── Home.jsx
+│   ├── Services.jsx
+│   └── Contact.jsx
+│
+├── App.jsx
+├── main.jsx
+└── router.jsx
+```
+
+---
+
+## 🛠️ Installation
+
+```bash
+git clone https://github.com/Adi-8789/Transport-website.git
+cd Transport-website
+npm install
+npm run dev
+```
+
+---
+
+## 🚀 Deployment
+
+We used **GitHub Pages** for deployment using:
+
+```bash
+npm run build
+git add .
+git commit -m "Deploy build"
+git push origin main
+```
+
+Then configure GitHub Pages from **Settings → Pages → Deploy from branch**.
+
+---
+
+## 📞 Contact
+
+For any transport bookings or queries:
+**Owner Name:** Aditya
+**Website:** Live soon on GitHub Pages
+
+---
+
+## ❤️ Tech Stack
+
+* React
+* Vite
+* CSS3
+* React Router DOM
+* Lucide Icons
+* Tailwind (optional)
+
+---
+
+## ⭐ Contribute
+
+Pull requests are welcome! Just follow proper commit messages and clean coding.
+
+---
+
+### © 2025 Transport Website — Designed & Developed by Aditya
