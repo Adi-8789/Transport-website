@@ -6,7 +6,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 50px;
+  padding: 15px 30px;
   background: linear-gradient(135deg, #0b132b, #1c2541, #3a506b);
   color: #fff;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -23,7 +23,6 @@
   cursor: pointer;
 }
 
-/* --- Desktop Menu --- */
 .nav-links {
   list-style: none;
   display: flex;
@@ -60,16 +59,24 @@
   width: 100%;
 }
 
-/* --- Hamburger Icon --- */
 .menu-icon {
   display: none;
-  font-size: 1.8rem;
+  font-size: 2rem;
   cursor: pointer;
   color: #00d9ff;
+  z-index: 1100;
+  transition: transform 0.3s ease;
 }
 
-/* --- Mobile Menu --- */
+.menu-icon:hover {
+  transform: scale(1.15);
+}
+
 @media (max-width: 768px) {
+  .navbar {
+    padding: 12px 20px;
+  }
+
   .nav-links {
     position: fixed;
     top: 0;
@@ -85,17 +92,18 @@
     box-shadow: -5px 0 15px rgba(0, 0, 0, 0.4);
   }
 
-  /* 👇 Match your React className logic */
   .nav-links.open {
     right: 0;
   }
 
   .menu-icon {
     display: block;
+    position: absolute;
+    right: 20px;
+    top: 18px;
   }
 }
 
-/* Optional: Make smooth scrolling work nicely */
 html {
   scroll-behavior: smooth;
 }
