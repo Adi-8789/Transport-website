@@ -13,11 +13,49 @@ export default function LocationSelector({ selectedVehicle }) {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // Replace with your OpenRouteService API Key
   const apiKey =
     "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6ImE2NGVhNjMyYjhkMTQ1YWJhNmQ4ZGIyMTFhMDBmZDQwIiwiaCI6Im11cm11cjY0In0=";
 
-  // Fetch coordinates for distance calculation
+  const handleSuggestion = async (value, type) => {
+    if (!value) {
+      if (type === "pickup") setPickupSuggestions([]);
+      else setDestinationSuggestions([]);
+      return;
+    }
+
+    const url =
+      "https://nominatim.openstreetmap.org/search?" +
+      new URLSearchParams({
+        q: value,
+        format: "json",
+        limit: 8,
+        addressdetails: 1,
+        countrycodes: "in",
+      });
+
+    try {
+      const res = await fetch(url, {
+        headers: { "Accept-Language": "en" },
+      });
+
+      const data = await res.json();
+
+      const refined = data
+        .map((item) => ({
+          display_name: item.display_name,
+          lat: item.lat,
+          lon: item.lon,
+          importance: item.importance,
+        }))
+        .sort((a, b) => b.importance - a.importance);
+
+      if (type === "pickup") setPickupSuggestions(refined);
+      else setDestinationSuggestions(refined);
+    } catch (err) {
+      console.error("Nominatim error:", err);
+    }
+  };
+
   const getCoords = async (place) => {
     const encoded = encodeURIComponent(place);
     const url = `https://api.openrouteservice.org/geocode/search?api_key=${apiKey}&text=${encoded}&boundary.country=IND&size=1`;
@@ -27,22 +65,6 @@ export default function LocationSelector({ selectedVehicle }) {
     return data.features[0]?.geometry?.coordinates;
   };
 
-  // Fetch autocomplete suggestions (India only)
-  const handleSuggestion = async (value, type) => {
-    if (!value) return;
-    const encoded = encodeURIComponent(value);
-    const url = `https://api.openrouteservice.org/geocode/autocomplete?api_key=${apiKey}&text=${encoded}&boundary.country=IND&size=5`;
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-      if (type === "pickup") setPickupSuggestions(data.features || []);
-      else setDestinationSuggestions(data.features || []);
-    } catch (err) {
-      console.error("Autocomplete fetch error:", err);
-    }
-  };
-
-  // Calculate distance & fare
   const calculateDistance = async () => {
     try {
       if (!pickup || !destination) {
@@ -70,7 +92,9 @@ export default function LocationSelector({ selectedVehicle }) {
 
       const routeUrl = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${apiKey}&start=${start[0]},${start[1]}&end=${end[0]},${end[1]}`;
       const routeRes = await fetch(routeUrl);
+
       if (!routeRes.ok) throw new Error("Failed to fetch distance");
+
       const routeData = await routeRes.json();
 
       const dist = routeData.features[0].properties.summary.distance / 1000;
@@ -104,57 +128,64 @@ export default function LocationSelector({ selectedVehicle }) {
       )}
 
       <div className="location-inputs">
-        {/* Pickup Input */}
-        <input
-          type="text"
-          placeholder="Enter pickup location"
-          value={pickup}
-          onChange={(e) => {
-            setPickup(e.target.value);
-            handleSuggestion(e.target.value, "pickup");
-          }}
-        />
-        {pickupSuggestions.length > 0 && (
-          <ul className="suggestions-list">
-            {pickupSuggestions.map((item, idx) => (
-              <li
-                key={idx}
-                onClick={() => {
-                  setPickup(item.properties.label);
-                  setPickupSuggestions([]);
-                }}
-              >
-                {item.properties.label}
-              </li>
-            ))}
-          </ul>
-        )}
+        
+        {/* PICKUP INPUT */}
+        <div className="input-wrapper">
+          <input
+            type="text"
+            placeholder="Enter pickup location"
+            value={pickup}
+            onChange={(e) => {
+              setPickup(e.target.value);
+              handleSuggestion(e.target.value, "pickup");
+            }}
+          />
 
-        {/* Destination Input */}
-        <input
-          type="text"
-          placeholder="Enter destination"
-          value={destination}
-          onChange={(e) => {
-            setDestination(e.target.value);
-            handleSuggestion(e.target.value, "destination");
-          }}
-        />
-        {destinationSuggestions.length > 0 && (
-          <ul className="suggestions-list">
-            {destinationSuggestions.map((item, idx) => (
-              <li
-                key={idx}
-                onClick={() => {
-                  setDestination(item.properties.label);
-                  setDestinationSuggestions([]);
-                }}
-              >
-                {item.properties.label}
-              </li>
-            ))}
-          </ul>
-        )}
+          {pickupSuggestions.length > 0 && (
+            <ul className="suggestions-list">
+              {pickupSuggestions.map((item, idx) => (
+                <li
+                  key={idx}
+                  onClick={() => {
+                    setPickup(item.display_name);
+                    setPickupSuggestions([]);
+                  }}
+                >
+                  {item.display_name}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        {/* DESTINATION INPUT */}
+        <div className="input-wrapper">
+          <input
+            type="text"
+            placeholder="Enter destination"
+            value={destination}
+            onChange={(e) => {
+              setDestination(e.target.value);
+              handleSuggestion(e.target.value, "destination");
+            }}
+          />
+
+          {destinationSuggestions.length > 0 && (
+            <ul className="suggestions-list">
+              {destinationSuggestions.map((item, idx) => (
+                <li
+                  key={idx}
+                  onClick={() => {
+                    setDestination(item.display_name);
+                    setDestinationSuggestions([]);
+                  }}
+                >
+                  {item.display_name}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
 
         <button onClick={calculateDistance} disabled={loading}>
           {loading ? "Calculating..." : "Get Fare"}
