@@ -1,0 +1,17 @@
+.contact-section {
+  padding: 80px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #1c2541, #3a506b);
+  color: white;
+  min-height: 50vh;
+}
+
+.contact-section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.contact-section p {
+  font-size: 1.1rem;
+  margin: 8px 0;
+}

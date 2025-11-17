@@ -1,0 +1,116 @@
+/* ---------- Container (handles both possible class names) ---------- */
+.vehicle-section,
+.vehicle-selector {
+  width: 100%;
+  background: #f9fafb;
+  padding: 40px 20px;
+}
+
+/* inner container that holds cards (supports both names) */
+.vehicle-container,
+.vehicle-list {
+  max-width: 1200px;        /* keeps content centered on large screens */
+  margin: 0 auto;           /* CENTER the content horizontally */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;  /* center items in the row */
+  align-items: flex-start;
+  gap: 25px;
+  box-sizing: border-box;
+  padding-top: 10px;
+  padding-bottom: 40px;
+  min-height: 60vh;
+}
+
+/* ---------- Each vehicle card ---------- */
+.vehicle-card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  width: 250px;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* hover / lift */
+.vehicle-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 30px rgba(0, 123, 255, 0.15);
+}
+
+/* image inside card */
+.vehicle-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 5px;
+}
+
+/* title & price */
+.vehicle-card h3 {
+  font-size: 1.18rem;
+  color: #111827;
+  margin: 0;
+  letter-spacing: 0.3px;
+}
+
+.vehicle-card p {
+  font-size: 0.95rem;
+  color: #4b5563;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* selected state */
+.vehicle-card.selected {
+  border: 2px solid #007bff;
+  box-shadow: 0 0 22px rgba(0, 123, 255, 0.28);
+}
+
+/* ---------- Responsive breakpoints ---------- */
+@media (max-width: 1024px) {
+  .vehicle-card {
+    width: 220px;
+  }
+}
+
+@media (max-width: 768px) {
+  .vehicle-container,
+  .vehicle-list {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    min-height: auto;
+    padding-bottom: 30px;
+  }
+
+  .vehicle-card {
+    width: 92%;
+    max-width: 480px;
+  }
+
+  .vehicle-card img {
+    height: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .vehicle-card {
+    width: 96%;
+    padding: 14px;
+  }
+
+  .vehicle-card h3 {
+    font-size: 1rem;
+  }
+
+  .vehicle-card p {
+    font-size: 0.9rem;
+  }
+}

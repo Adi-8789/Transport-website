@@ -1,0 +1,157 @@
+.location-section {
+  padding: 60px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #1c2541, #3a506b, #5bc0be);
+  color: white;
+  min-height: 60vh;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.location-section h2 {
+  font-size: 2rem;
+  margin-bottom: 25px;
+  font-weight: 700;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.location-inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  max-width: 450px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.location-inputs input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #00d9ff;
+  font-size: 1rem;
+  outline: none;
+  transition: 0.3s;
+  z-index: 1;
+}
+
+.location-inputs input:focus {
+  border-color: #25d366;
+  box-shadow: 0 0 8px #25d366;
+}
+
+.location-inputs button {
+  background: #25d366;
+  border: none;
+  padding: 14px 25px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: 0.3s ease;
+}
+
+.location-inputs button:hover {
+  background: #1da851;
+}
+
+.selected-info {
+  background: rgba(0, 0, 0, 0.25);
+  padding: 1rem 1.2rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.fare-result {
+  margin-top: 1rem;
+  background: rgba(0,0,0,0.3);
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 500;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+
+.book-now {
+  margin-top: 15px;
+  background: #00d9ff;
+  color: #000;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.book-now:hover {
+  background: #04b5d4;
+  color: white;
+}
+
+.error {
+  color: #ff6961;
+  margin-top: 10px;
+}
+
+.loading-gesture {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.spinner {
+  border: 4px solid rgba(255,255,255,0.2);
+  border-left-color: #00d9ff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 10px auto;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.suggestions-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 160px;
+  overflow-y: auto;
+  background: #fff;
+  color: #000;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  position: absolute;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.suggestions-list li {
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.suggestions-list li:hover {
+  background-color: #00d9ff;
+  color: white;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+  .location-inputs {
+    max-width: 95%;
+  }
+
+  .suggestions-list {
+    top: 48px;
+  }
+}
